@@ -2,6 +2,7 @@ import "@mantine/core/styles.css";
 import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
+import '@mantine/charts/styles.css';
 
 export const metadata = {
   title: "Mantine Next.js template",
@@ -21,7 +22,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <MantineProvider defaultColorScheme="auto" theme={theme}>
-        {/* <NavbarSimple /> */}
           {children}
         </MantineProvider>
       </body>

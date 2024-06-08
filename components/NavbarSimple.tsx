@@ -9,32 +9,34 @@ import {
     IconCoffee
 } from '@tabler/icons-react';
 import classes from '../css/NavbarSimple.module.css';
-import Image from 'next/image';
 import PropertyTrendsLogo from './property-trends-logo';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const data = [
-    { link: '', label: 'National Stats', icon: IconHomeStats },
-    { link: '', label: 'Average Price', icon: IconMathAvg },
-    { link: '', label: 'Price Paid', icon: IconCurrencyPound },
+    { link: '/dashboard/national-stats', label: 'National Stats', icon: IconHomeStats },
+    { link: '/dashboard/average-price', label: 'Average Price', icon: IconMathAvg },
+    { link: '/dashboard/price-paid', label: 'Price Paid', icon: IconCurrencyPound },
 ];
 
 export function NavbarSimple() {
     const [active, setActive] = useState('National Stats');
+    const pathname = usePathname();
 
     const links = data.map((item) => (
-        <a
+        <Link
             className={classes.link}
             data-active={item.label === active || undefined}
             href={item.link}
             key={item.label}
             onClick={(event) => {
-                event.preventDefault();
+                // event.preventDefault();
                 setActive(item.label);
             }}
         >
             <item.icon className={classes.linkIcon} stroke={1.5} />
             <span>{item.label}</span>
-        </a>
+        </Link>
     ));
 
     return (
@@ -42,7 +44,6 @@ export function NavbarSimple() {
             <div className={classes.navbarMain}>
                 <Group className={classes.header} justify="space-between">
                     <PropertyTrendsLogo />
-                    {/* <Code fw={700}>v0.0.1</Code> */}
                 </Group>
                 {links}
             </div>
