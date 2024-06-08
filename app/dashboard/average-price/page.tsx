@@ -5,14 +5,27 @@ import { ImageCheckboxes } from "../../../components/ImageCheckboxes";
 import classes from '../../../css/Layout.module.css';
 import PricesChart from "../../../components/PricesChart";
 import { PriceDataByPropertyType } from "../../../lib/definitions";
-import { fetchSampleData } from "../../../lib/postgres-data";
+import { fetchRealData, fetchSampleData } from "../../../lib/postgres-data";
 
-export default async function PricePaidPage() {
-
-    let data: PriceDataByPropertyType[] = []
-
-    data = await fetchSampleData('LE4');
-
+export default async function Page({
+    searchParams,
+  }: {
+    searchParams?: {
+      query?: string;
+    };
+  }) {
+    const query = searchParams?.query || '';
+    let data: PriceDataByPropertyType[] = [];
+    if (query) {
+      //use an environment variable to determine which data to fetch
+      if (process.env.USE_SAMPLE_DATA == 'true') {
+        console.debug('Using sample data');
+        data = await fetchSampleData(query);
+      } else {
+        console.debug('Using real data');
+        data = await fetchRealData(query);
+      }
+    }
     return (
         <>
             <div className={classes.content}>
@@ -22,7 +35,7 @@ export default async function PricePaidPage() {
                 <ImageCheckboxes />
             </div>
             <div className={classes.content}>
-                <PricesChart data = {data}/>
+                <PricesChart data={data} />
             </div>
         </>
     );
