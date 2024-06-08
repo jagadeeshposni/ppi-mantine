@@ -10,7 +10,6 @@ interface ImageCheckboxProps {
   defaultChecked?: boolean;
   onChange?(checked: boolean): void;
   title: string;
-  description: string;
   image: string;
 }
 
@@ -19,7 +18,6 @@ export function ImageCheckbox({
   defaultChecked,
   onChange,
   title,
-  description,
   className,
   image,
   ...others
@@ -41,16 +39,12 @@ export function ImageCheckbox({
       <Image src={image} alt={title} width={30} height={30} />
 
       <div className={classes.body}>
-        {/* <Text c="dimmed" size="xs" lh={1} mb={5}>
-          {description}
-        </Text> */}
         <Text fw={500} size="sm" lh={1}>
           {title}
         </Text>
       </div>
 
       <Checkbox
-      
         checked={value}
         onChange={() => { }}
         tabIndex={-1}
@@ -61,13 +55,13 @@ export function ImageCheckbox({
 }
 
 const mockdata = [
-  { description: '', title: 'Terraced', image: '/terraced-house.png' },
-  { description: '', title: 'Semi Detached', image: '/semi-detached.png' },
-  { description: '', title: 'Detached', image: '/detached.png' },
-  { description: '', title: 'Flats', image: '/flats.png' },
+  { title: 'Terraced', image: '/terraced-house.png' },
+  { title: 'Semi Detached', image: '/semi-detached.png' },
+  { title: 'Detached', image: '/detached.png' },
+  { title: 'Flats', image: '/flats.png' },
 ];
 
 export function ImageCheckboxes() {
-  const items = mockdata.map((item) => <ImageCheckbox {...item} key={item.title} />);
+  const items = mockdata.map((item) => <ImageCheckbox defaultChecked {...item} key={item.title} />);
   return <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }}>{items}</SimpleGrid>;
 }

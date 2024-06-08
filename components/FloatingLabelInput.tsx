@@ -7,11 +7,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 
 export function FloatingLabelInput() {
-    const [focused, setFocused] = useState(false);
-    const [value, setValue] = useState('');
     const [ac, setAc] = useState([]);
-
-    const floating = value.trim().length !== 0 || focused || undefined;
 
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -29,7 +25,7 @@ export function FloatingLabelInput() {
     };
 
 
-    const postCodeData = useDebouncedCallback((term) => {
+    const fetchPostCodesData = useDebouncedCallback((term) => {
         fetch(`https://api.postcodes.io/postcodes/${term}/autocomplete`)
             .then((response) => response.json())
             .then((data) => {
@@ -38,34 +34,15 @@ export function FloatingLabelInput() {
             });
     }, 500);
 
-      
-
-
-
     return (
         <>
-            {/* <TextInput
-                label="Search Postcode..."
-                placeholder="Postcode in UK"
-                required
-                classNames={classes}
-                value={value}
-                onChange={(event) => setValue(event.currentTarget.value)}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-                mt="md"
-                autoComplete="nope"
-                data-floating={floating}
-                labelProps={{ 'data-floating': floating }}
-            /> */}
             <Autocomplete
                 placeholder="Search Postcode.."
                 limit={5}
-                onChange={(term) => postCodeData(term)}
+                onChange={(term) => fetchPostCodesData(term)}
                 data={ac}
                 mt="md"
-                data-floating={floating}
-                onOptionSubmit={(option) => {handleSearch(option)}}
+                onOptionSubmit={(option) => { handleSearch(option) }}
             />
 
         </>
