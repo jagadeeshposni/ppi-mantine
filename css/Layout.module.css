@@ -1,0 +1,9 @@
+.layout {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.content {
+    padding: var(--mantine-spacing-md);
+}
