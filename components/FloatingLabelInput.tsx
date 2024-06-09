@@ -53,6 +53,8 @@ export function FloatingLabelInput() {
                 onChange={(term) => fetchPostCodesData(term)}
                 data={ac}
                 onOptionSubmit={(option) => { handleSearch(option) }}
+                defaultValue={searchParams.get('query')?.toString()}
+
             />
             <Button
                 autoContrast

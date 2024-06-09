@@ -53,9 +53,6 @@ export function ImageCheckbox({
   );
 }
 
-
-
-
 const mockdata = [
   { param: 't', title: 'Terraced', image: '/terraced-house.png' },
   { param: 's', title: 'Semi Detached', image: '/semi-detached.png' },
@@ -83,6 +80,7 @@ export function ImageCheckboxes() {
     <ImageCheckbox
       {...item}
       key={item.title}
+      checked={searchParams.get(item.param) === 'true'}
       onChange={(checked: boolean) => handleChekboxChange(checked, item.param)}
     />);
   return <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }}>{items}</SimpleGrid>;

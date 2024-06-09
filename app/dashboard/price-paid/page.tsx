@@ -12,7 +12,9 @@ export default function PricePaidPage() {
                 </Suspense>
             </div>
             <div className={classes.content}>
-                <ImageCheckboxes />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <ImageCheckboxes />
+                </Suspense>
             </div>
         </div>
     );
