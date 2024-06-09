@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Autocomplete, TextInput } from '@mantine/core';
+import { Autocomplete, Button, Flex, Group, TextInput } from '@mantine/core';
 import classes from '../css/FloatingLabelInput.module.css';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
@@ -14,7 +14,10 @@ export function FloatingLabelInput() {
     const { replace } = useRouter();
 
     const handleSearch = (term: string) => {
-        console.info('searching for', term);
+        if (term === undefined || term === null || term === '') {
+            term = document.getElementById('search').value;
+            console.log(term);
+        }
         const params = new URLSearchParams(searchParams);
         if (term) {
             params.set('query', term);
@@ -35,16 +38,36 @@ export function FloatingLabelInput() {
     }, 500);
 
     return (
-        <>
+        <Flex
+            mih={50}
+            gap="xl"
+            justify="center"
+            align="flex-end"
+            direction="row"
+            wrap="wrap"
+        >
             <Autocomplete
+                id="search"
+                label="Search Postcode"
                 placeholder="Search Postcode.."
                 limit={5}
                 onChange={(term) => fetchPostCodesData(term)}
                 data={ac}
-                mt="md"
                 onOptionSubmit={(option) => { handleSearch(option) }}
             />
+            <Button
+                autoContrast
+                variant="gradient"
+                gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                size='md'
+                radius={5}
+                mt={10}
+                onClick={() => { handleSearch('') }}
+            >
+                Submit
+            </Button>
+        </Flex>
 
-        </>
+
     );
 }

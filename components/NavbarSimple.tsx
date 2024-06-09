@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const data = [
-    { link: '/dashboard/national-stats', label: 'National Stats', icon: IconHomeStats },
+    { link: '/dashboard/', label: 'Home', icon: IconHomeStats },
     { link: '/dashboard/average-price', label: 'Average Price', icon: IconMathAvg },
     { link: '/dashboard/price-paid', label: 'Price Paid', icon: IconCurrencyPound },
 ];
