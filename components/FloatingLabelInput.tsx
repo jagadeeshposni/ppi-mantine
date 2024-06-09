@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { Autocomplete, Button, Flex, Group, TextInput } from '@mantine/core';
-import classes from '../css/FloatingLabelInput.module.css';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 

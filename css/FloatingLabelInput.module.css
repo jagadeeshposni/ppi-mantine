@@ -1,5 +1,0 @@
-.layout{
-    display: flex;
-    flex-direction: row;
-    padding-top: calc(var(--mantine-spacing-xl));
-}

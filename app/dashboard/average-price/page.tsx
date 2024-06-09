@@ -31,14 +31,18 @@ export default async function Page({
         <>
             <div className={classes.content}>
                 <FloatingLabelInput />
-                
+
             </div>
             <div className={classes.content}>
                 <ImageCheckboxes />
             </div>
-            <div className={classes.content}>
-                <PricesChart data={data} />
-            </div>
+            
+            {data.length != 0 && (
+                <div className={classes.content}>
+                    <PricesChart data={data} />
+                </div>
+            )}
+
         </>
     );
 }
