@@ -26,7 +26,7 @@ export async function fetchSampleData(query: string) {
       `);
 
     // log count of rows in data
-    console.debug("Data rowcount: " + data.rowCount);
+    // console.debug("Data rowcount: " + data.rowCount);
     // console.log("Sample data: ", data.rows);
     return data.rows;
   } catch (err) {

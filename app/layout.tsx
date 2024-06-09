@@ -5,8 +5,8 @@ import { theme } from "../theme";
 import '@mantine/charts/styles.css';
 
 export const metadata = {
-  title: "Mantine Next.js template",
-  description: "I am using Mantine with Next.js!",
+  title: "Property Trends | UK",
+  description: "A deeper dive into UK property trends using visualizations and data analysis",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

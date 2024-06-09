@@ -12,6 +12,10 @@ export default async function Page({
 }: {
     searchParams?: {
         query?: string;
+        t?: boolean;
+        s?: boolean;
+        d?: boolean;
+        f?: boolean;
     };
 }) {
     const query = searchParams?.query || '';
@@ -38,7 +42,12 @@ export default async function Page({
 
             {data.length != 0 && (
                 <div className={classes.content}>
-                    <PricesChart data={data} />
+                    <PricesChart data={data}
+                        s={searchParams?.s || false}
+                        t={searchParams?.t || false}
+                        d={searchParams?.d || false}
+                        f={searchParams?.f || false}
+                    />
                 </div>
             )}
 

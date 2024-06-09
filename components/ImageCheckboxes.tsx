@@ -1,7 +1,7 @@
 'use client';
 import { UnstyledButton, Checkbox, Text, SimpleGrid } from '@mantine/core';
 import { useUncontrolled } from '@mantine/hooks';
-// import icons from './icons';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import classes from '../css/ImageCheckboxes.module.css';
 import Image from "next/image";
 
@@ -46,7 +46,6 @@ export function ImageCheckbox({
 
       <Checkbox
         checked={value}
-        onChange={() => { }}
         tabIndex={-1}
         styles={{ input: { cursor: 'pointer' } }}
       />
@@ -54,14 +53,37 @@ export function ImageCheckbox({
   );
 }
 
+
+
+
 const mockdata = [
-  { title: 'Terraced', image: '/terraced-house.png' },
-  { title: 'Semi Detached', image: '/semi-detached.png' },
-  { title: 'Detached', image: '/detached.png' },
-  { title: 'Flats', image: '/flats.png' },
+  { param: 't', title: 'Terraced', image: '/terraced-house.png' },
+  { param: 's', title: 'Semi Detached', image: '/semi-detached.png' },
+  { param: 'd', title: 'Detached', image: '/detached.png' },
+  { param: 'f', title: 'Flats', image: '/flats.png' },
 ];
 
 export function ImageCheckboxes() {
-  const items = mockdata.map((item) => <ImageCheckbox defaultChecked {...item} key={item.title} />);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const handleChekboxChange = (checked: boolean, param: string) => {
+    console.log(checked, param);
+    const params = new URLSearchParams(searchParams);
+    if (checked) {
+      params.set(param, 'true');
+    } else {
+      params.delete(param);
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }
+
+  const items = mockdata.map((item) =>
+    <ImageCheckbox
+      {...item}
+      key={item.title}
+      onChange={(checked: boolean) => handleChekboxChange(checked, item.param)}
+    />);
   return <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }}>{items}</SimpleGrid>;
 }

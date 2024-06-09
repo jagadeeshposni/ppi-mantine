@@ -32,7 +32,6 @@ export function FloatingLabelInput() {
         fetch(`https://api.postcodes.io/postcodes/${term}/autocomplete`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.result);
                 setAc(data.result);
             });
     }, 500);
