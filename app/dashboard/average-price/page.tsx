@@ -6,7 +6,6 @@ import classes from '../../../css/Layout.module.css';
 import PricesChart from "../../../components/PricesChart";
 import { PriceDataByPropertyType } from "../../../lib/definitions";
 import { fetchRealData, fetchSampleData } from "../../../lib/postgres-data";
-import { Button } from "@mantine/core";
 
 export default async function Page({
     searchParams,
@@ -36,7 +35,7 @@ export default async function Page({
             <div className={classes.content}>
                 <ImageCheckboxes />
             </div>
-            
+
             {data.length != 0 && (
                 <div className={classes.content}>
                     <PricesChart data={data} />

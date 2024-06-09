@@ -14,7 +14,8 @@ export function FloatingLabelInput() {
 
     const handleSearch = (term: string) => {
         if (term === undefined || term === null || term === '') {
-            term = document.getElementById('search').value;
+            const searchInput = document.getElementById('search') as HTMLInputElement | null;
+            term = searchInput?.value ?? '';
             console.log(term);
         }
         const params = new URLSearchParams(searchParams);
@@ -48,7 +49,7 @@ export function FloatingLabelInput() {
             <Autocomplete
                 id="search"
                 label="Search Postcode"
-                placeholder="Search Postcode.."
+                placeholder="Start typing..."
                 limit={5}
                 onChange={(term) => fetchPostCodesData(term)}
                 data={ac}
