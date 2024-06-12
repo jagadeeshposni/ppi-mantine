@@ -1,4 +1,4 @@
-import { FloatingLabelInput } from "../../../components/FloatingLabelInput";
+import { FloatingLabelInput } from "../../../components/AvgPricePostcodeInput";
 import { ImageCheckboxes } from "../../../components/ImageCheckboxes";
 import classes from '../../../css/Layout.module.css';
 import { Suspense } from 'react'
