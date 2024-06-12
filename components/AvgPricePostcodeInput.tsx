@@ -5,7 +5,7 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
 
-export function FloatingLabelInput() {
+export function AvgPricePostcodeInput() {
     const [ac, setAc] = useState([]);
 
     const searchParams = useSearchParams();
