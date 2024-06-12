@@ -60,7 +60,7 @@ export function FloatingLabelInput() {
                 autoContrast
                 variant="gradient"
                 gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-                size='md'
+                size='sm'
                 radius={5}
                 mt={10}
                 onClick={() => { handleSearch('') }}

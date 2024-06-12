@@ -25,7 +25,7 @@ export default function PricesChart
     series.push({ name: 'terraced', color: 'yellow.6' });
   }
   if(d){
-    series.push({ name: 'detached_houses_average_price', color: 'indigo.6' });
+    series.push({ name: 'detached_houses_average_price', color: 'red.6' });
   }
   if(f){
     series.push({ name: 'flats_average_price', color: 'grape.6' });
@@ -35,6 +35,7 @@ export default function PricesChart
     <AreaChart
       h={500}
       data={data}
+      
       dataKey="transfer_date"
       series={series}
       curveType="monotone"
