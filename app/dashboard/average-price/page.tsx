@@ -49,7 +49,7 @@ export default async function Page({
                 </div>
             )}
 
-            {data.length <= 0 && (
+            {query && data.length <= 0 && (
 
                 <div>
                     <Center>

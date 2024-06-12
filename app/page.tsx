@@ -1,4 +1,3 @@
-// 'use client';
 import { Image, Container, Title, Button, Group, Text, List, ListItem, ThemeIcon, rem } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
 import image from '../public/image.svg';
