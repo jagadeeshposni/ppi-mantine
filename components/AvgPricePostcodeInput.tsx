@@ -44,8 +44,10 @@ export function AvgPricePostcodeInput() {
             align="flex-end"
             direction="row"
             wrap="wrap"
+            
         >
             <Autocomplete
+            
                 id="search"
                 label="Search Postcode"
                 placeholder="Start typing..."
