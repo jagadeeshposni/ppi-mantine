@@ -1,5 +1,4 @@
 
-
 import { AvgPricePostcodeInput } from "../../../components/AvgPricePostcodeInput";
 import classes from '../../../css/Layout.module.css';
 import { PriceDataByPropertyType } from "../../../lib/definitions";
@@ -20,9 +19,10 @@ export default async function Page({
         f?: boolean;
     };
 }) {
+
     const query = searchParams?.query || '';
     let data: PriceDataByPropertyType[] = [];
-
+   
     if (query) {
         //use an environment variable to determine which data to fetch
         if (process.env.USE_SAMPLE_DATA == 'true') {
@@ -37,9 +37,9 @@ export default async function Page({
 
     return (
         <>
-            <div className={classes.content}>
+            
+            <div className={data.length === 0 ? classes.centeredContent : classes.content}>
                 <AvgPricePostcodeInput />
-
             </div>
             <Space h={rem(40)} />
 
@@ -50,7 +50,6 @@ export default async function Page({
             )}
 
             {query && data.length <= 0 && (
-
                 <div>
                     <Center>
                         <Alert style={{ width: rem(400), height: rem(120) }} variant="outline" color="yellow" title="No Price Paid data" icon={icon}>
