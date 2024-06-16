@@ -5,7 +5,7 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
 
-export function AvgPricePostcodeInput() {
+export default function AvgPricePostcodeInput() {
     const [ac, setAc] = useState([]);
     const [postcodeError, setPostcodeError] = useState<boolean>(false);
     const [postcodeInput, setPostcodeInput] = useState('');

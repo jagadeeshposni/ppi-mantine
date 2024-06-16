@@ -1,118 +1,46 @@
-'use client'
-import { AreaChart } from '@mantine/charts';
+import { Alert, Center, rem } from '@mantine/core';
 import { PriceDataByPropertyType } from '../lib/definitions';
-import classes from '../css/Layout.module.css';
-import { Center, SegmentedControl, Space, rem } from '@mantine/core';
-import Image from "next/image";
-import { useState } from 'react';
+import { fetchRealData, fetchSampleData } from '../lib/postgres-data';
+import ChartWithSelectors from './ChartWithSelectors';
+import Image from 'next/image';
+import { Suspense } from 'react';
+import AvgPriceOutputSkeleton from './skeleton/AvgPriceOutpuSkeleton';
 
-export default function AvgPriceOutput
+export default async function AvgPriceOutput
   ({
-    data,
+    query,
   }: {
-    data: PriceDataByPropertyType[];
+    query: string;
   }) {
-
-
-  let series = [];
-  const [value, setValue] = useState('all');
-  if (value == 'all') {
-    series = [];
-    series.push({ name: 'semi_detached_houses_average_price', color: 'blue.6' });
-    series.push({ name: 'terraced', color: 'yellow.6' });
-    series.push({ name: 'detached_houses_average_price', color: 'red.6' });
-    series.push({ name: 'flats_average_price', color: 'grape.6' });
-  } else if (value == 't') {
-    series = [];
-    series.push({ name: 'terraced', color: 'yellow.6' });
+  let data: PriceDataByPropertyType[] = [];
+  if (query) {
+    //use an environment variable to determine which data to fetch
+    if (process.env.USE_SAMPLE_DATA == 'true') {
+      console.debug('Using sample data');
+      data = await fetchSampleData(query);
+    } else {
+      console.debug('Using real data');
+      data = await fetchRealData(query);
+    }
   }
-  else if (value == 's') {
-    series = [];
-    series.push({ name: 'semi_detached_houses_average_price', color: 'blue.6' });
-  }
-  else if (value == 'd') {
-    series = [];
-    series.push({ name: 'detached_houses_average_price', color: 'red.6' });
-  }
-  else if (value == 'f') {
-    series = [];
-    series.push({ name: 'flats_average_price', color: 'grape.6' });
-  }
+  const icon = <Image src='/sad.png' alt='Terraced' width={20} height={20} />
 
-  return (<>
+  return (
+    <>
+      <Suspense fallback={<AvgPriceOutputSkeleton />} >
 
-    <SegmentedControl
-      fullWidth
-      size='lg'
-      radius='md'
-      color='teal'
-      transitionDuration={500}
-      transitionTimingFunction="linear"
-      value={value}
-      onChange={setValue}
-      data={[
-        {
-          value: 'all',
-          label: (
-            <Center style={{ gap: 10 }}>
-              <Image src='/terraced-house.png' alt='Terraced' width={30} height={30} />
-              <span>All</span>
-            </Center>
-          ),
-        },
-        {
-          value: 't',
-          label: (
-            <Center style={{ gap: 10 }}>
-              <Image src='/terraced-house.png' alt='Terraced' width={30} height={30} />
-              <span>Terraced</span>
-            </Center>
-          ),
-        },
-        {
-          value: 's',
-          label: (
-            <Center style={{ gap: 10 }}>
-              <Image src='/semi-detached.png' alt='Terraced' width={30} height={30} />
-              <span>Semi Detached</span>
-            </Center>
-          ),
-        },
-        {
-          value: 'd',
-          label: (
-            <Center style={{ gap: 10 }}>
-              <Image src='/detached.png' alt='Terraced' width={30} height={30} />
-              <span>Detached</span>
-            </Center>
-          ),
-        },
-        {
-          value: 'f',
-          label: (
-            <Center style={{ gap: 10 }}>
-              <Image src='/flats.png' alt='Terraced' width={30} height={30} />
-              <span>Flats</span>
-            </Center>
-          ),
-        },
-      ]}
-    />
-    <Space h={rem(40)} />
-    <div className={classes.content}>
-      <AreaChart
-        h={500}
-        data={data}
-
-        dataKey="transfer_date"
-        series={series}
-        curveType="monotone"
-        withLegend
-        connectNulls
-        tooltipAnimationDuration={200}
-      />
-    </div>
-  </>
+        <ChartWithSelectors data={data} />
+      </Suspense>
+      {query && data.length === 0 && (
+        <div>
+          <Center>
+            <Alert style={{ width: rem(400), height: rem(120) }} variant="outline" color="yellow" title="No Price Paid data" icon={icon}>
+              There is no data present for the postcode {query}. Please try another postcode.
+            </Alert>
+          </Center>
+        </div>
+      )}
+    </>
   );
 }
 

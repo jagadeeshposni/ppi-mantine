@@ -9,6 +9,7 @@ export async function fetchSampleData(query: string) {
     port: process.env.PGPORT,
   });
   try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await pool.query(`
     SELECT 
@@ -45,6 +46,7 @@ export async function fetchRealData(query: string) {
   });
   try {
     //retain type from query
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await pool.query(`
     SELECT 
