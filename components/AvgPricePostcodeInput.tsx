@@ -24,16 +24,15 @@ export default function AvgPricePostcodeInput() {
             const outcodeResponse = await fetch(`https://api.postcodes.io/outcodes/${term}`);
             const outcodeData = await outcodeResponse.json();
             if (outcodeData.status === 404) {
-                console.debug('setting error');
                 setPostcodeError(true);
-                console.debug('error set');
             } else {
-                console.debug('setting query');
                 if (!postcodeError) {
                     if (term) {
                         params.set('query', term);
+                        params.set('type', 'outcode');
                     } else {
                         params.delete('query');
+                        params.delete('type');
                     }
                     replace(`${pathname}?${params.toString()}`);
                 }
@@ -42,8 +41,11 @@ export default function AvgPricePostcodeInput() {
             if (!postcodeError) {
                 if (term) {
                     params.set('query', term);
+                    params.set('type', 'postcode');
                 } else {
                     params.delete('query');
+                    params.delete('type');
+
                 }
                 replace(`${pathname}?${params.toString()}`);
             }
@@ -66,7 +68,7 @@ export default function AvgPricePostcodeInput() {
 
     return (
         <Flex
-            mih={50}
+            mih={75}
             gap="xl"
             justify="center"
             align="flex-end"
@@ -75,8 +77,9 @@ export default function AvgPricePostcodeInput() {
 
         >
             <Autocomplete
+            size='xs'
                 id="search"
-                label="Search Postcode"
+                label="Search Postcode/Postcode Area"
                 placeholder="Start typing..."
                 limit={10}
                 onChange={(term) => handleChange(term)}

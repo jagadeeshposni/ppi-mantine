@@ -9,18 +9,20 @@ import AvgPriceOutputSkeleton from './skeleton/AvgPriceOutpuSkeleton';
 export default async function AvgPriceOutput
   ({
     query,
+    type
   }: {
     query: string;
+    type: string
   }) {
   let data: PriceDataByPropertyType[] = [];
-  if (query) {
+  if (query && type) {
     //use an environment variable to determine which data to fetch
     if (process.env.USE_SAMPLE_DATA == 'true') {
       console.debug('Using sample data');
-      data = await fetchSampleData(query);
+      data = await fetchSampleData(query, type);
     } else {
       console.debug('Using real data');
-      data = await fetchRealData(query);
+      data = await fetchRealData(query, type);
     }
   }
   const icon = <Image src='/sad.png' alt='Terraced' width={20} height={20} />
