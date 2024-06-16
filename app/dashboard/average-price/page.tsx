@@ -38,7 +38,7 @@ export default async function Page({
     return (
         <>
             
-            <div className={data.length === 0 ? classes.centeredContent : classes.content}>
+            <div className={data.length === 0 && !query ? classes.centeredContent : classes.content}>
                 <AvgPricePostcodeInput />
             </div>
             <Space h={rem(40)} />
@@ -49,11 +49,11 @@ export default async function Page({
                 </div>
             )}
 
-            {query && data.length <= 0 && (
+            {query && data.length === 0 && (
                 <div>
                     <Center>
                         <Alert style={{ width: rem(400), height: rem(120) }} variant="outline" color="yellow" title="No Price Paid data" icon={icon}>
-                            There is no data present for the postcode you entered. Please try another postcode.
+                            There is no data present for the postcode {query}. Please try another postcode.
                         </Alert>
                     </Center>
                 </div>
