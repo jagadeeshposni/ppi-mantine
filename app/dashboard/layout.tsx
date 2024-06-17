@@ -1,11 +1,14 @@
 import classes from '../../css/Layout.module.css';
-import { NavbarSimple } from '../../components/NavbarSimple';
+import { NavbarDesktop } from '../../components/NavbarDesktop';
+import { Box } from '@mantine/core';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className={classes.layout}>
-        <NavbarSimple />
+        <Box visibleFrom='sm' >
+          <NavbarDesktop />
+        </Box>
         <div className={classes.content}>
           {children}
         </div>

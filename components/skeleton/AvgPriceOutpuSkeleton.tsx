@@ -19,19 +19,19 @@ export default function AvgPriceOutputSkeleton() {
             <Skeleton height={2} mt={6} className="right: 0" width="25%" radius="xl" />
             <Space h={rem(65)} />
 
-            <Skeleton height={2} mt={6} radius="xl" />
+            <Skeleton height={2} mt={6} radius="sm" />
             <Space h={rem(65)} />
 
-            <Skeleton height={2} mt={6} radius="xl" />
+            <Skeleton height={2} mt={6} radius="sm" />
             <Space h={rem(65)} />
 
-            <Skeleton height={2} mt={6} radius="xl" />
+            <Skeleton height={2} mt={6} radius="sm" />
             <Space h={rem(65)} />
 
-            <Skeleton height={2} mt={6} radius="xl" />
+            <Skeleton height={2} mt={6} radius="sm" />
             <Space h={rem(65)} />
 
-            <Skeleton height={2} mt={6} radius="xl" />
+            <Skeleton height={2} mt={6} radius="sm" />
             <Space h={rem(65)} />
 
         </>

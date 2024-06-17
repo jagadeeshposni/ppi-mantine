@@ -2,7 +2,7 @@
 import { AreaChart } from '@mantine/charts';
 import { PriceDataByPropertyType } from '../lib/definitions';
 import classes from '../css/Layout.module.css';
-import { Center, SegmentedControl, Space, rem } from '@mantine/core';
+import { Box, Center, SegmentedControl, Space, rem } from '@mantine/core';
 import Image from "next/image";
 import { Suspense, useState } from 'react';
 import AvgPriceOutputSkeleton from './skeleton/AvgPriceOutpuSkeleton';
@@ -43,11 +43,9 @@ export default function ChartWithSelectors({
 
         data.length !== 0 && (
             <>
-                        
-
                 <SegmentedControl
                     fullWidth
-                    size='lg'
+                    size='sm'
                     radius='md'
                     color='teal'
                     transitionDuration={500}
@@ -60,7 +58,7 @@ export default function ChartWithSelectors({
                             label: (
                                 <Center style={{ gap: 10 }}>
                                     <Image src='/terraced-house.png' alt='Terraced' width={30} height={30} />
-                                    <span>All</span>
+                                    <Box visibleFrom='sm'> All  </Box>
                                 </Center>
                             ),
                         },
@@ -69,7 +67,7 @@ export default function ChartWithSelectors({
                             label: (
                                 <Center style={{ gap: 10 }}>
                                     <Image src='/terraced-house.png' alt='Terraced' width={30} height={30} />
-                                    <span>Terraced</span>
+                                    <Box visibleFrom='sm'> Terraced  </Box>
                                 </Center>
                             ),
                         },
@@ -78,7 +76,7 @@ export default function ChartWithSelectors({
                             label: (
                                 <Center style={{ gap: 10 }}>
                                     <Image src='/semi-detached.png' alt='Terraced' width={30} height={30} />
-                                    <span>Semi Detached</span>
+                                    <Box visibleFrom='sm'> Semi Detached  </Box>
                                 </Center>
                             ),
                         },
@@ -87,7 +85,7 @@ export default function ChartWithSelectors({
                             label: (
                                 <Center style={{ gap: 10 }}>
                                     <Image src='/detached.png' alt='Terraced' width={30} height={30} />
-                                    <span>Detached</span>
+                                    <Box visibleFrom='sm'> Detached  </Box>
                                 </Center>
                             ),
                         },
@@ -96,7 +94,7 @@ export default function ChartWithSelectors({
                             label: (
                                 <Center style={{ gap: 10 }}>
                                     <Image src='/flats.png' alt='Terraced' width={30} height={30} />
-                                    <span>Flats</span>
+                                    <Box visibleFrom='sm'>Flats</Box>
                                 </Center>
                             ),
                         },

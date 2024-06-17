@@ -30,7 +30,6 @@ export default async function AvgPriceOutput
   return (
     <>
       <Suspense fallback={<AvgPriceOutputSkeleton />} >
-
         <ChartWithSelectors data={data} />
       </Suspense>
       {query && data.length === 0 && (

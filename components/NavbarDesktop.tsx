@@ -19,9 +19,8 @@ const data = [
     { link: '/dashboard/price-paid', label: 'Price Paid', icon: IconCurrencyPound },
 ];
 
-export function NavbarSimple() {
+export function NavbarDesktop() {
     const [active, setActive] = useState('National Stats');
-    const pathname = usePathname();
 
     const links = data.map((item) => (
         <Link
