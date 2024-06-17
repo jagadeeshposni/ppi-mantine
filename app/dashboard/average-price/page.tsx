@@ -22,11 +22,9 @@ export default async function Page({
         <>
             <AvgPricePostcodeInput />
             <Space h={rem(40)} />
-            <div className={classes.content}>
-                <Suspense key={query + type} fallback={<AvgPriceOutputSkeleton />} >
-                    <AvgPriceOutput query={query} type={type}/>
-                </Suspense>
-            </div>
+            <Suspense key={query + type} fallback={<AvgPriceOutputSkeleton />} >
+                <AvgPriceOutput query={query} type={type} />
+            </Suspense>
 
         </>
     );

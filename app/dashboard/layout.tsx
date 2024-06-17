@@ -26,13 +26,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <PropertyTrendsLogo />
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar p="md" onClick={mobileOpened ? toggleMobile : undefined }>
+      <AppShell.Navbar p="md" onClick={mobileOpened ? toggleMobile : undefined}>
         <NavbarDesktop />
       </AppShell.Navbar>
       <AppShell.Main>
-        <div className={classes.content}>
-          {children}
-        </div></AppShell.Main>
+        {children}
+      </AppShell.Main>
     </AppShell>
   );
 

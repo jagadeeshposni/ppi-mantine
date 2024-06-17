@@ -1,11 +1,9 @@
 'use client'
 import { AreaChart } from '@mantine/charts';
-import { PriceDataByPropertyType } from '../lib/definitions';
-import classes from '../css/Layout.module.css';
 import { Box, Center, SegmentedControl, Space, rem } from '@mantine/core';
 import Image from "next/image";
-import { Suspense, useState } from 'react';
-import AvgPriceOutputSkeleton from './skeleton/AvgPriceOutpuSkeleton';
+import { useState } from 'react';
+import { PriceDataByPropertyType } from '../lib/definitions';
 
 
 export default function ChartWithSelectors({
@@ -15,29 +13,30 @@ export default function ChartWithSelectors({
 }) {
     const [value, setValue] = useState('all');
 
-    let series = [];
-    if (value == 'all') {
-        series = [];
-        series.push({ name: 'semi_detached_houses_average_price', color: 'blue.6' });
-        series.push({ name: 'terraced', color: 'yellow.6' });
-        series.push({ name: 'detached_houses_average_price', color: 'red.6' });
-        series.push({ name: 'flats_average_price', color: 'grape.6' });
-    } else if (value == 't') {
-        series = [];
-        series.push({ name: 'terraced', color: 'yellow.6' });
+    interface SeriesItem {
+        name: string;
+        color: string;
+        label: string;
     }
-    else if (value == 's') {
-        series = [];
-        series.push({ name: 'semi_detached_houses_average_price', color: 'blue.6' });
+
+    interface SeriesMap {
+        [key: string]: SeriesItem[];
     }
-    else if (value == 'd') {
-        series = [];
-        series.push({ name: 'detached_houses_average_price', color: 'red.6' });
-    }
-    else if (value == 'f') {
-        series = [];
-        series.push({ name: 'flats_average_price', color: 'grape.6' });
-    }
+
+    const seriesMap: SeriesMap = {
+        all: [
+            { name: 'semi_detached_houses_average_price', color: 'blue.6', label: 'Semi-Detached Houses' },
+            { name: 'terraced', color: 'yellow.6', label: 'Terraced Houses' },
+            { name: 'detached_houses_average_price', color: 'red.6', label: 'Detached Houses' },
+            { name: 'flats_average_price', color: 'grape.6', label: 'Flats' }
+        ],
+        t: [{ name: 'terraced', color: 'yellow.6', label: 'Terraced Houses' }],
+        s: [{ name: 'semi_detached_houses_average_price', color: 'blue.6', label: 'Semi-Detached Houses' }],
+        d: [{ name: 'detached_houses_average_price', color: 'red.6', label: 'Detached Houses' }],
+        f: [{ name: 'flats_average_price', color: 'grape.6', label: 'Flats' }]
+    };
+
+    const series = seriesMap[value];
 
     return (
 
@@ -102,18 +101,17 @@ export default function ChartWithSelectors({
                 />
                 <Space h={rem(40)} />
 
-                <div className={classes.content}>
-                    <AreaChart
-                        h={500}
-                        data={data}
-                        dataKey="transfer_date"
-                        series={series}
-                        curveType="monotone"
-                        withLegend
-                        connectNulls
-                        tooltipAnimationDuration={200}
-                    />
-                </div>
+                <AreaChart
+                    h={500}
+                    data={data}
+                    dataKey="transfer_date"
+                    series={series}
+                    curveType="monotone"
+                    withLegend
+                    connectNulls
+                    tooltipAnimationDuration={200}
+
+                />
             </>
         ));
 
