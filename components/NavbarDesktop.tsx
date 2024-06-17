@@ -9,9 +9,7 @@ import {
     IconCoffee
 } from '@tabler/icons-react';
 import classes from '../css/NavbarSimple.module.css';
-import PropertyTrendsLogo from './property-trends-logo';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 const data = [
     { link: '/dashboard/', label: 'Home', icon: IconHomeStats },
@@ -38,26 +36,22 @@ export function NavbarDesktop() {
         </Link>
     ));
 
-    return (
-        <nav className={classes.navbar}>
-            <div className={classes.navbarMain}>
-                <Group className={classes.header} justify="space-between">
-                    <PropertyTrendsLogo />
-                </Group>
-                {links}
-            </div>
+    return (<>            <div className={classes.navbarMain}>
+        {links}
+    </div>
 
-            <div className={classes.footer}>
-                <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-                    <IconInfoCircleFilled className={classes.linkIcon} stroke={1.5} />
-                    <span>About</span>
-                </a>
+        <div className={classes.footer}>
+            <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+                <IconInfoCircleFilled className={classes.linkIcon} stroke={1.5} />
+                <span>About</span>
+            </a>
 
-                <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-                    <IconCoffee className={classes.linkIcon} stroke={1.5} />
-                    <span>Buy Coffee</span>
-                </a>
-            </div>
-        </nav>
+            <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+                <IconCoffee className={classes.linkIcon} stroke={1.5} />
+                <span>Buy Coffee</span>
+            </a>
+        </div>
+    </>
+
     );
 }
