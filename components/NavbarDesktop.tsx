@@ -36,9 +36,10 @@ export function NavbarDesktop() {
         </Link>
     ));
 
-    return (<>            <div className={classes.navbarMain}>
-        {links}
-    </div>
+    return (<>
+        <div className={classes.navbarMain}>
+            {links}
+        </div>
 
         <div className={classes.footer}>
             <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
