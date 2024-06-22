@@ -12,7 +12,7 @@ export default function PricePaidChart({
   const rows = data.map((element) => (
     // const address = ;
 
-    <Table.Tr >
+    <Table.Tr key='price_paid' >
       <Table.Td>{element.transfer_date}</Table.Td>
       <Table.Td>{element.price}</Table.Td>
       <Table.Td>{
