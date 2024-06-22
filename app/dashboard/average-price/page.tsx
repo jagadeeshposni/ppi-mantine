@@ -1,10 +1,9 @@
 
-import classes from '../../../css/Layout.module.css';
-import AvgPriceOutput from "../../../components/AvgPriceOutput";
-import { Suspense } from "react";
-import AvgPriceOutputSkeleton from "../../../components/skeleton/AvgPriceOutpuSkeleton";
 import { Space, rem } from "@mantine/core";
-import AvgPricePostcodeInput from '../../../components/AvgPricePostcodeInput';
+import { Suspense } from "react";
+import AvgPriceOutput from "../../../components/AvgPriceOutput";
+import PostCodeInput from '../../../components/PostCodeInput';
+import AvgPriceOutputSkeleton from "../../../components/skeleton/AvgPriceOutpuSkeleton";
 
 export default async function Page({
     searchParams,
@@ -20,7 +19,7 @@ export default async function Page({
 
     return (
         <>
-            <AvgPricePostcodeInput />
+            <PostCodeInput page="avgPrice"/>
             <Space h={rem(40)} />
             <Suspense key={query + type} fallback={<AvgPriceOutputSkeleton />} >
                 <AvgPriceOutput query={query} type={type} />

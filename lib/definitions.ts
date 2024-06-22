@@ -3,10 +3,6 @@
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 
-export type PriceData = {
-  transfer_date: string;
-  price: string;
-};
 
 export type PriceDataByPropertyType = {
   transfer_date: string;
@@ -16,7 +12,23 @@ export type PriceDataByPropertyType = {
   flats: string;
 };
 
-export type SampleData = {
-  month: string;
+export type PricePaidDataByPostCode = {
+  transfer_date: string;
   price: number;
+  property_type: string;
+  soan: string;
+  paon: string;
+  street: string;
+  city: string;
+  county: string;
+  age: string;
+
 };
+
+// transfer_date, 
+//     price, 
+//     soan, 
+//     paon,  
+//     street, 
+//     city, 
+//     county 

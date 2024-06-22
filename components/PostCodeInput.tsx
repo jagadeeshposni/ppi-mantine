@@ -1,11 +1,11 @@
 'use client';
+import { Autocomplete, Button, Flex } from '@mantine/core';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { Autocomplete, Button, CloseButton, Flex, Group, TextInput } from '@mantine/core';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
 
-export default function AvgPricePostcodeInput() {
+export default function PostCodeInput({ page }: { page: string }) {
     const [ac, setAc] = useState([]);
     const [postcodeError, setPostcodeError] = useState<boolean>(false);
     const [postcodeInput, setPostcodeInput] = useState('');
@@ -14,6 +14,8 @@ export default function AvgPricePostcodeInput() {
     const pathname = usePathname();
     const { replace } = useRouter();
 
+    console.log('page', page);
+
     const handleSearch = async (term: string) => {
         console.debug('searching for postcode' + term);
         setPostcodeError(false);
@@ -21,6 +23,12 @@ export default function AvgPricePostcodeInput() {
         const response = await fetch(`https://api.postcodes.io/postcodes/${term}/validate`);
         const data = await response.json();
         if (data.result === false) {
+            // Disabling outcode search when the input request is coming from pricePaidData page. Reason: Outcode search would result in large amount of data
+            // and it's not user friendly to display all the data at once as I am thinking of showing it a bar chart.
+
+            if (page === 'pricePaidData') {
+                setPostcodeError(true);
+            }
             const outcodeResponse = await fetch(`https://api.postcodes.io/outcodes/${term}`);
             const outcodeData = await outcodeResponse.json();
             if (outcodeData.status === 404) {
@@ -37,11 +45,14 @@ export default function AvgPricePostcodeInput() {
                     replace(`${pathname}?${params.toString()}`);
                 }
             }
-        }else{
+        } else {
             if (!postcodeError) {
                 if (term) {
                     params.set('query', term);
-                    params.set('type', 'postcode');
+                    if (page !== 'pricePaidData') { 
+                        // Disabling outcode search when the input request is coming from pricePaidData page. Reason: Outcode search would result in large amount of data   
+                        params.set('type', 'postcode');
+                    }
                 } else {
                     params.delete('query');
                     params.delete('type');
@@ -59,7 +70,7 @@ export default function AvgPricePostcodeInput() {
                 setAc(data.result);
             });
     }, 500);
-   
+
     const handleChange = (term: string) => {
         setPostcodeInput(term);
         setPostcodeError(false);
@@ -77,7 +88,7 @@ export default function AvgPricePostcodeInput() {
 
         >
             <Autocomplete
-            size='xs'
+                size='xs'
                 id="search"
                 label="Search Postcode/Postcode Area"
                 placeholder="Start typing..."
@@ -86,7 +97,7 @@ export default function AvgPricePostcodeInput() {
                 data={ac}
                 onOptionSubmit={(option) => { handleSearch(option) }}
                 defaultValue={searchParams.get('query')?.toString()}
-                error={postcodeError? 'Invalid Postcode' : false}
+                error={postcodeError ? 'Invalid Postcode' : false}
 
             />
 

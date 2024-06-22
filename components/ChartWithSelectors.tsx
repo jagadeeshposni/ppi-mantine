@@ -42,63 +42,65 @@ export default function ChartWithSelectors({
 
         data.length !== 0 && (
             <>
-                <SegmentedControl
-                    fullWidth
-                    size='sm'
-                    radius='md'
-                    color='teal'
-                    transitionDuration={500}
-                    transitionTimingFunction="linear"
-                    value={value}
-                    onChange={setValue}
-                    data={[
-                        {
-                            value: 'all',
-                            label: (
-                                <Center style={{ gap: 10 }}>
-                                    <Image src='/terraced-house.png' alt='Terraced' width={30} height={30} />
-                                    <Box visibleFrom='sm'> All  </Box>
-                                </Center>
-                            ),
-                        },
-                        {
-                            value: 't',
-                            label: (
-                                <Center style={{ gap: 10 }}>
-                                    <Image src='/terraced-house.png' alt='Terraced' width={30} height={30} />
-                                    <Box visibleFrom='sm'> Terraced  </Box>
-                                </Center>
-                            ),
-                        },
-                        {
-                            value: 's',
-                            label: (
-                                <Center style={{ gap: 10 }}>
-                                    <Image src='/semi-detached.png' alt='Terraced' width={30} height={30} />
-                                    <Box visibleFrom='sm'> Semi Detached  </Box>
-                                </Center>
-                            ),
-                        },
-                        {
-                            value: 'd',
-                            label: (
-                                <Center style={{ gap: 10 }}>
-                                    <Image src='/detached.png' alt='Terraced' width={30} height={30} />
-                                    <Box visibleFrom='sm'> Detached  </Box>
-                                </Center>
-                            ),
-                        },
-                        {
-                            value: 'f',
-                            label: (
-                                <Center style={{ gap: 10 }}>
-                                    <Image src='/flats.png' alt='Terraced' width={30} height={30} />
-                                    <Box visibleFrom='sm'>Flats</Box>
-                                </Center>
-                            ),
-                        },
-                    ]}
-                />
+                <Center style={{ gap: 10 }}>
+                    <SegmentedControl
+                        // fullWidth
+                        size='sm'
+                        radius='md'
+                        color='teal'
+                        transitionDuration={500}
+                        transitionTimingFunction="linear"
+                        value={value}
+                        onChange={setValue}
+                        data={[
+                            {
+                                value: 'all',
+                                label: (
+                                    <Center style={{ gap: 10, padding: 5 }}>
+                                        <Image src='/house.png' alt='Terraced' width={30} height={30} />
+                                        <Box visibleFrom='sm'> All Types </Box>
+                                    </Center>
+                                ),
+                            },
+                            {
+                                value: 't',
+                                label: (
+                                    <Center style={{ gap: 10, padding: 5 }}>
+                                        <Image src='/terraced-house.png' alt='Terraced' width={30} height={30} />
+                                        <Box visibleFrom='sm'> Terraced  </Box>
+                                    </Center>
+                                ),
+                            },
+                            {
+                                value: 's',
+                                label: (
+                                    <Center style={{ gap: 10, padding: 5 }}>
+                                        <Image src='/semi-detached.png' alt='Terraced' width={30} height={30} />
+                                        <Box visibleFrom='sm'> Semi Detached  </Box>
+                                    </Center>
+                                ),
+                            },
+                            {
+                                value: 'd',
+                                label: (
+                                    <Center style={{ gap: 10, padding: 5 }}>
+                                        <Image src='/detached.png' alt='Terraced' width={30} height={30} />
+                                        <Box visibleFrom='sm'> Detached  </Box>
+                                    </Center>
+                                ),
+                            },
+                            {
+                                value: 'f',
+                                label: (
+                                    <Center style={{ gap: 10, padding: 5 }}>
+                                        <Image src='/flats.png' alt='Terraced' width={30} height={30} />
+                                        <Box visibleFrom='sm'>Flats</Box>
+                                    </Center>
+                                ),
+                            },
+                        ]}
+                    />
+                </Center>
                 <Space h={rem(40)} />
 
                 <AreaChart
