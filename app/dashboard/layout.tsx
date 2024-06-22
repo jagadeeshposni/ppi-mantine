@@ -4,6 +4,7 @@ import { NavbarDesktop } from '../../components/NavbarDesktop';
 import { AppShell, Box, Burger, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import PropertyTrendsLogo from '../../components/property-trends-logo';
+import { Suspense } from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
@@ -27,7 +28,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md" onClick={mobileOpened ? toggleMobile : undefined}>
-        <NavbarDesktop />
+        <Suspense fallback={<Box>loading...</Box>}>
+          <NavbarDesktop />
+        </Suspense>
       </AppShell.Navbar>
       <AppShell.Main>
         {children}

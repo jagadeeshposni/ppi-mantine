@@ -7,9 +7,9 @@ import {
     IconMathAvg
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import classes from '../css/NavbarSimple.module.css';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const data = [
     { link: '/dashboard', label: 'Home', icon: IconHomeStats },

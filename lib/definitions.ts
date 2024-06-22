@@ -12,7 +12,7 @@ export type PriceDataByPropertyType = {
   flats: string;
 };
 
-export type PricePaidDataByPostCode = {
+export type PricePaidDataByPostCode  = {
   transfer_date: string;
   price: number;
   property_type: string;

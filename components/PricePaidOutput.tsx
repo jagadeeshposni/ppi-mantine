@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 import { PricePaidDataByPostCode } from '../lib/definitions';
 import { fetchPricePaidDataForPostcode } from '../lib/postgres-data';
-import PricePaidChart from './PricePaidChart';
 import AvgPriceOutputSkeleton from './skeleton/AvgPriceOutpuSkeleton';
+import PricePaidTable from './table-with-search-sort/PricePiadTable';
 
 export default async function PricePaidOutput
   ({
@@ -23,7 +23,7 @@ export default async function PricePaidOutput
   return (
     <>
       <Suspense fallback={<AvgPriceOutputSkeleton />} >
-        <PricePaidChart data={data} />
+        <PricePaidTable data={data} />
       </Suspense>
       {query && data.length === 0 && (
         <div>
