@@ -1,33 +1,35 @@
 'use client';
-import { useState } from 'react';
-import { Group, Code } from '@mantine/core';
 import {
-    IconHomeStats,
+    IconCoffee,
     IconCurrencyPound,
-    IconMathAvg,
+    IconHomeStats,
     IconInfoCircleFilled,
-    IconCoffee
+    IconMathAvg
 } from '@tabler/icons-react';
-import classes from '../css/NavbarSimple.module.css';
 import Link from 'next/link';
+import { useState } from 'react';
+import classes from '../css/NavbarSimple.module.css';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const data = [
-    { link: '/dashboard/', label: 'Home', icon: IconHomeStats },
+    { link: '/dashboard', label: 'Home', icon: IconHomeStats },
     { link: '/dashboard/average-price', label: 'Average Price', icon: IconMathAvg },
     { link: '/dashboard/price-paid', label: 'Price Paid', icon: IconCurrencyPound },
 ];
 
 export function NavbarDesktop() {
+    const searchParams = useSearchParams();
+    const params = new URLSearchParams(searchParams);
+
     const [active, setActive] = useState('National Stats');
 
     const links = data.map((item) => (
         <Link
             className={classes.link}
             data-active={item.label === active || undefined}
-            href={item.link}
+            href={`${item.link}?${params.toString()}`}
             key={item.label}
             onClick={(event) => {
-                // event.preventDefault();
                 setActive(item.label);
             }}
         >
