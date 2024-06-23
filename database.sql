@@ -1,4 +1,4 @@
-CREATE TABLE price_paid_sample (
+CREATE TABLE price_paid_complete (
     id SERIAL PRIMARY KEY,
     trx_uid UUID,
     price NUMERIC,

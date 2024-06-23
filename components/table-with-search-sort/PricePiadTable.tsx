@@ -90,6 +90,9 @@ export default function PricePaidTable({
     const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
 
+    //if the soan is empty for all rows, then hide the soan column
+    const showSoan = data.some((row) => row.soan !== '');
+
     const setSorting = (field: keyof RowData) => {
         const reversed = field === sortBy ? !reverseSortDirection : false;
         setReverseSortDirection(reversed);
@@ -114,10 +117,11 @@ export default function PricePaidTable({
                             row.property_type === 'F' ? 'Flats' : 'Other'
             }
             </Table.Td>
-            <Table.Td>{(row.soan + ' ' + row.paon + ' ' + row.street + ' ').replace(/ +/g, ' ')}</Table.Td>
+            {showSoan && <Table.Td>{row.soan}</Table.Td>}
+            <Table.Td>{(row.paon + ' ' + row.street + ' ').replace(/ +/g, ' ')}</Table.Td>
             <Table.Td>{row.city}</Table.Td>
             <Table.Td>{row.county}</Table.Td>
-            <Table.Td>{row.age}</Table.Td>
+            <Table.Td>{row.age === 'N' ? 'New Build' : 'Pre-Built'}</Table.Td>
         </Table.Tr>
     ));
 
@@ -149,10 +153,22 @@ export default function PricePaidTable({
                             reversed={reverseSortDirection}
                             onSort={() => setSorting('property_type')}
                         >Property Type</Th>
-                        <Th
+                        {showSoan && (
+                            <Th
+                                sorted={sortBy === 'soan'}
+                                reversed={reverseSortDirection}
+                                onSort={() => setSorting('soan')}
+                            >Number </Th>
+                        )}
+                        {/* <Th
                             sorted={sortBy === 'soan'}
                             reversed={reverseSortDirection}
                             onSort={() => setSorting('soan')}
+                        >Number </Th> */}
+                        <Th
+                            sorted={sortBy === 'paon'}
+                            reversed={reverseSortDirection}
+                            onSort={() => setSorting('paon')}
                         >Address </Th>
                         <Th
                             sorted={sortBy === 'city'}
