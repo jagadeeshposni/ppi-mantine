@@ -12,25 +12,31 @@ import { useState } from 'react';
 import classes from '../css/NavbarSimple.module.css';
 
 const data = [
-    { link: '/dashboard', label: 'Home', icon: IconHomeStats },
-    { link: '/dashboard/average-price', label: 'Average Price', icon: IconMathAvg },
-    { link: '/dashboard/price-paid', label: 'Price Paid', icon: IconCurrencyPound },
+    { id: 1, link: '/dashboard', label: 'Home', icon: IconHomeStats },
+    { id: 2, link: '/dashboard/average-price', label: 'Average Price', icon: IconMathAvg },
+    { id: 3, link: '/dashboard/average-price?type=postcode', label: 'By Postcode', icon: IconMathAvg, nested: true },
+    { id: 4, link: '/dashboard/average-price?type=area', label: 'By Area', icon: IconMathAvg, nested: true },
+    { id: 5, link: '/dashboard/price-paid', label: 'Price Paid', icon: IconCurrencyPound },
+    { id: 6, link: '/dashboard/price-paid?type=postcode', label: 'By Postcode', icon: IconCurrencyPound, nested: true },
+    { id: 7, link: '/dashboard/price-paid?type=area', label: 'By Area', icon: IconCurrencyPound, nested: true },
 ];
 
 export function NavbarDesktop() {
-    const searchParams = useSearchParams();
-    const params = new URLSearchParams(searchParams);
+    // const searchParams = useSearchParams();
+    // const params = new URLSearchParams(searchParams);
 
-    const [active, setActive] = useState('National Stats');
+    const [active, setActive] = useState(0);
 
     const links = data.map((item) => (
         <Link
-            className={classes.link}
-            data-active={item.label === active || undefined}
-            href={`${item.link}?${params.toString()}`}
+        
+            className={item.nested ? classes.nestedLink : classes.link}
+            data-active={item.id === active || undefined}
+            // href={`${item.link}?${params.toString()}`}
+            href = {item.link}
             key={item.label}
             onClick={(event) => {
-                setActive(item.label);
+                setActive(item.id);
             }}
         >
             <item.icon className={classes.linkIcon} stroke={1.5} />
@@ -42,6 +48,8 @@ export function NavbarDesktop() {
         <div className={classes.navbarMain}>
             {links}
         </div>
+
+
 
         <div className={classes.footer}>
             <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
