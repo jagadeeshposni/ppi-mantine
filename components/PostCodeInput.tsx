@@ -14,60 +14,14 @@ export default function PostCodeInput({ page }: { page: string }) {
     const pathname = usePathname();
     const { replace } = useRouter();
 
-    const type = searchParams.get('type')
 
 
     console.log('page', page);
 
-    // const handleSearch = async (term: string) => {
-    //     console.debug('searching for postcode' + term);
-    //     setPostcodeError(false);
-    //     const params = new URLSearchParams(searchParams);
-    //     const response = await fetch(`https://api.postcodes.io/postcodes/${term}/validate`);
-    //     const data = await response.json();
-    //     if (data.result === false) {
-    //         // Disabling outcode search when the input request is coming from pricePaidData page. Reason: Outcode search would result in large amount of data
-    //         // and it's not user friendly to display all the data at once as I am thinking of showing it a bar chart.
-
-    //         if (page === 'pricePaidData') {
-    //             setPostcodeError(true);
-    //         }
-    //         const outcodeResponse = await fetch(`https://api.postcodes.io/outcodes/${term}`);
-    //         const outcodeData = await outcodeResponse.json();
-    //         if (outcodeData.status === 404) {
-    //             setPostcodeError(true);
-    //         } else {
-    //             if (!postcodeError) {
-    //                 if (term) {
-    //                     params.set('query', term);
-    //                     params.set('type', 'outcode');
-    //                 } else {
-    //                     params.delete('query');
-    //                     params.delete('type');
-    //                 }
-    //                 replace(`${pathname}?${params.toString()}`);
-    //             }
-    //         }
-    //     } else {
-    //         if (!postcodeError) {
-    //             if (term) {
-    //                 params.set('query', term);
-    //                 if (page !== 'pricePaidData') {
-    //                     // Disabling outcode search when the input request is coming from pricePaidData page. Reason: Outcode search would result in large amount of data   
-    //                     params.set('type', 'postcode');
-    //                 }
-    //             } else {
-    //                 params.delete('query');
-    //                 params.delete('type');
-
-    //             }
-    //             replace(`${pathname}?${params.toString()}`);
-    //         }
-    //     }
-    // }
-
     const handleSearch = async (term: string) => {
         const params = new URLSearchParams(searchParams);
+        //check if the term is a postcode or area
+        const type = term.match(/^[A-Z]{1,2}[0-9]{1,2}[A-Z]? [0-9][A-Z]{2}$/) ? 'postcode' : 'area';
 
         if (type === 'postcode') {
             const response = await fetch(`https://api.postcodes.io/postcodes/${term}/validate`);
@@ -102,20 +56,36 @@ export default function PostCodeInput({ page }: { page: string }) {
     }
 
     const fetchPostCodesData = useDebouncedCallback((term) => {
-        type === 'postcode' ?
             fetch(`https://api.postcodes.io/postcodes/${term}/autocomplete`)
                 .then((response) => response.json())
                 .then((data) => {
-                    setAc(data.result);
+                    if (data.result === null) {
+                        setPostcodeError(true);
+                    } else {
+                        let acResult = data.result;
+                        //take first element and extract outcode
+                        const outcode = acResult[0].split(' ')[0];
+                        acResult.unshift(outcode);
+                        // alert(acResult);
+                        setAc(acResult);
+                    }
                 })
-            :
-
-            fetch(`https://api.postcodes.io/outcodes/${term}/nearest`)
-                .then((response) => response.json())
-                .then((data) => {
-                    const result = data.result.map((e: { outcode: any; }) => e.outcode);
-                    setAc(result);
+                .catch((error) => {
+                    console.error("Error fetching postcode autocomplete data:", error);
+                    setPostcodeError(true);
                 });
+
+
+            // fetch(`https://api.postcodes.io/outcodes/${term}/nearest`)
+            //     .then((response) => response.json())
+            //     .then((data) => {
+            //         if (data.status !== 200) {
+            //             setPostcodeError(true);
+            //         } else {
+            //             const result = data.result.map((e: { outcode: any; }) => e.outcode);
+            //             setAc(result);
+            //         }
+            //     });
     }, 400);
 
     //fetch postcodes api and set error if the response is not 200
@@ -140,7 +110,7 @@ export default function PostCodeInput({ page }: { page: string }) {
             <Autocomplete
                 size='md'
                 id="search"
-                label={type === 'postcode' ? "Search Postcode.." : "Search Postcode Area.."}
+                label={"Search Postcode/Area"}
                 placeholder="Start typing..."
                 limit={10}
                 onChange={(term) => handleChange(term)}
