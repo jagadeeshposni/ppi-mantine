@@ -44,3 +44,20 @@ SET outcode = CASE
               END;
 
 select postcode, outcode from price_paid_complete group by postcode, outcode having  postcode like 'LE%';
+
+
+SELECT 
+    TO_CHAR(DATE_TRUNC('year', transfer_date), 'YYYY') AS transfer_date,
+    ROUND(AVG(CASE WHEN property_type = 'T' THEN price ELSE NULL END))::INTEGER AS terraced,
+    ROUND(AVG(CASE WHEN property_type = 'S' THEN price ELSE NULL END))::INTEGER AS semi_detached_houses_average_price,
+    ROUND(AVG(CASE WHEN property_type = 'D' THEN price ELSE NULL END))::INTEGER AS detached_houses_average_price,
+    ROUND(AVG(CASE WHEN property_type = 'F' THEN price ELSE NULL END))::INTEGER AS flats_average_price
+FROM 
+    price_paid_complete
+WHERE
+    split_part(postcode, ' ', 1) = split_part('LE4 7QL', ' ', 1) -- $1 is the full postcode parameter, and we're extracting the outcode part to match.
+    AND postcode = 'LE4 7QL' -- Optional: further filter to match the exact postcode if necessary.
+GROUP BY 
+    DATE_TRUNC('year', transfer_date)
+ORDER BY 
+    transfer_date;
